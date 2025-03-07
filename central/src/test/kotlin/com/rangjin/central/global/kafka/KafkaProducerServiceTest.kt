@@ -1,20 +1,24 @@
 package com.rangjin.central.global.kafka
 
-import com.rangjin.core.article.dto.CrawlingResultDto
+import com.rangjin.core.domain.article.dto.CrawlingResultDto
+import com.rangjin.core.global.kafka.dto.KafkaMessage
+import com.rangjin.core.global.kafka.dto.KafkaMessageType
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.apache.kafka.common.PartitionInfo
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.kafka.core.KafkaTemplate
 
 class KafkaProducerServiceTest {
 
-    private val kafkaTemplate: KafkaTemplate<String, CrawlingResultDto> = mockk()
-    private val kafkaProducerService: KafkaProducerService = KafkaProducerService(kafkaTemplate)
+    private val topicName = "test-topic"
+    private val kafkaTemplate: KafkaTemplate<String, KafkaMessage<CrawlingResultDto>> = mockk()
+    private val kafkaProducerService: KafkaProducerService = KafkaProducerService(topicName, kafkaTemplate)
 
     @Test
-    fun kafka_producer_test() {
+    fun kafka_producer_send_test() {
         // given
         val crawlingResultDto = CrawlingResultDto(
             pressId = 1L,
@@ -24,14 +28,37 @@ class KafkaProducerServiceTest {
             viewCount = 1000
         )
 
-        every { kafkaTemplate.send(any<String>(), any<CrawlingResultDto>()) } returns mockk()
+        val kafkaMessage = KafkaMessage(
+            type = KafkaMessageType.DATA,
+            data = crawlingResultDto
+        )
+
+        every { kafkaTemplate.send(topicName, any(), any()) } returns mockk()
 
         // when
-        kafkaProducerService.send(crawlingResultDto)
+        kafkaProducerService.send(kafkaMessage)
 
         // then
         verify(exactly = 1) {
-            kafkaTemplate.send("crawling-result", any())
+            kafkaTemplate.send(topicName, any(), any())
+        }
+    }
+
+    @Test
+    fun kafka_producer_send_complete_test() {
+        // given
+        every { kafkaTemplate.send(topicName, any(), any(), any()) } returns mockk()
+        every { kafkaTemplate.partitionsFor(topicName) } returns mutableListOf(
+            PartitionInfo(topicName, 0, null, null, null),
+            PartitionInfo(topicName, 1, null, null, null)
+        )
+
+        // when
+        kafkaProducerService.sendComplete()
+
+        // then
+        verify(exactly = 2) {
+            kafkaTemplate.send(topicName, any(), any(), any())
         }
     }
 

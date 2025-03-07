@@ -1,6 +1,6 @@
-package com.rangjin.core.press.dto
+package com.rangjin.core.domain.press.dto
 
-import com.rangjin.core.press.entity.Press
+import com.rangjin.core.domain.press.entity.Press
 
 data class PressDto (
 

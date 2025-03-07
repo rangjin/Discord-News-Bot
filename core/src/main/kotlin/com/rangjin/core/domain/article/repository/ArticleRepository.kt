@@ -1,6 +1,6 @@
-package com.rangjin.core.article.repository
+package com.rangjin.core.domain.article.repository
 
-import com.rangjin.core.article.entity.Article
+import com.rangjin.core.domain.article.entity.Article
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

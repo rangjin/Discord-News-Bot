@@ -1,7 +1,7 @@
 package com.rangjin.central.global.crawling
 
-import com.rangjin.core.article.dto.CrawlingResultDto
-import com.rangjin.core.press.dto.PressDto
+import com.rangjin.core.domain.article.dto.CrawlingResultDto
+import com.rangjin.core.domain.press.dto.PressDto
 import com.rangjin.central.domain.press.service.PressService
 import io.mockk.every
 import io.mockk.mockk
