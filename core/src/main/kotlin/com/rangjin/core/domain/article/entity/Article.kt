@@ -1,6 +1,6 @@
-package com.rangjin.core.article.entity
+package com.rangjin.core.domain.article.entity
 
-import com.rangjin.core.press.entity.Press
+import com.rangjin.core.domain.press.entity.Press
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id

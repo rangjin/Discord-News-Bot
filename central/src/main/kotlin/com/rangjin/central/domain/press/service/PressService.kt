@@ -1,7 +1,7 @@
 package com.rangjin.central.domain.press.service
 
-import com.rangjin.core.press.dto.PressDto
-import com.rangjin.core.press.repository.PressRepository
+import com.rangjin.core.domain.press.dto.PressDto
+import com.rangjin.core.domain.press.repository.PressRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

@@ -1,4 +1,4 @@
-package com.rangjin.core.press.entity
+package com.rangjin.core.domain.press.entity
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

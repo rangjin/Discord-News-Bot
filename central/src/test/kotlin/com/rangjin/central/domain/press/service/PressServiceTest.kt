@@ -1,8 +1,8 @@
 package com.rangjin.central.domain.press.service
 
-import com.rangjin.core.press.dto.PressDto
-import com.rangjin.core.press.entity.Press
-import com.rangjin.core.press.repository.PressRepository
+import com.rangjin.core.domain.press.dto.PressDto
+import com.rangjin.core.domain.press.entity.Press
+import com.rangjin.core.domain.press.repository.PressRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*

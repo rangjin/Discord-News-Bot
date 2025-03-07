@@ -1,6 +1,6 @@
 package com.rangjin.central.global.crawling
 
-import com.rangjin.core.article.dto.CrawlingResultDto
+import com.rangjin.core.domain.article.dto.CrawlingResultDto
 import com.rangjin.central.domain.press.service.PressService
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
