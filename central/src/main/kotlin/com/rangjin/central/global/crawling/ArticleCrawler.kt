@@ -31,6 +31,8 @@ class ArticleCrawler (
         }
 
         return crawlingResultDtoList
+            .sortedByDescending { it.viewCount }
+            .take(100)
     }
 
     private fun crawlingResultToDto(pressId: Long, article: Element): CrawlingResultDto? {
