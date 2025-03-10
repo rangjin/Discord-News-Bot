@@ -7,15 +7,14 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.apache.kafka.common.PartitionInfo
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.kafka.core.KafkaTemplate
 
-class KafkaProducerServiceTest {
+class KafkaProducerTest {
 
     private val topicName = "test-topic"
-    private val kafkaTemplate: KafkaTemplate<String, KafkaMessage<CrawlingResultDto>> = mockk()
-    private val kafkaProducerService: KafkaProducerService = KafkaProducerService(topicName, kafkaTemplate)
+    private val kafkaTemplate: KafkaTemplate<String, KafkaMessage?> = mockk()
+    private val kafkaProducer: KafkaProducer = KafkaProducer(topicName, kafkaTemplate)
 
     @Test
     fun kafka_producer_send_test() {
@@ -36,7 +35,7 @@ class KafkaProducerServiceTest {
         every { kafkaTemplate.send(topicName, any(), any()) } returns mockk()
 
         // when
-        kafkaProducerService.send(kafkaMessage)
+        kafkaProducer.send(kafkaMessage)
 
         // then
         verify(exactly = 1) {
@@ -54,7 +53,7 @@ class KafkaProducerServiceTest {
         )
 
         // when
-        kafkaProducerService.sendComplete()
+        kafkaProducer.sendComplete()
 
         // then
         verify(exactly = 2) {
