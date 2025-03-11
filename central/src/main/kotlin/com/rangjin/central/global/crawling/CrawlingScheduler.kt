@@ -1,6 +1,6 @@
 package com.rangjin.central.global.crawling
 
-import com.rangjin.central.global.kafka.KafkaProducerService
+import com.rangjin.central.global.kafka.KafkaProducer
 import com.rangjin.core.global.kafka.dto.KafkaMessage
 import com.rangjin.core.global.kafka.dto.KafkaMessageType
 import org.springframework.scheduling.annotation.Scheduled
@@ -11,16 +11,16 @@ class CrawlingScheduler (
 
     private val articleCrawler: ArticleCrawler,
 
-    private val kafkaProducerService: KafkaProducerService
+    private val kafkaProducer: KafkaProducer
 
 ) {
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "*/5 * * * * *")
     fun schedule() {
         val crawlingResultDtoList = articleCrawler.crawlingRankingArticles()
 
         for (crawlingResultDto in crawlingResultDtoList) {
-            kafkaProducerService.send(
+            kafkaProducer.send(
                 KafkaMessage(
                     type = KafkaMessageType.DATA,
                     data = crawlingResultDto
@@ -28,7 +28,7 @@ class CrawlingScheduler (
             )
         }
 
-        kafkaProducerService.sendComplete()
+        kafkaProducer.sendComplete()
     }
 
 }

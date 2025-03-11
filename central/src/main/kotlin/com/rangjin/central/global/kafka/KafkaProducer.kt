@@ -1,24 +1,23 @@
 package com.rangjin.central.global.kafka
 
-import com.rangjin.core.domain.article.dto.CrawlingResultDto
 import com.rangjin.core.global.kafka.dto.KafkaMessage
 import com.rangjin.core.global.kafka.dto.KafkaMessageType
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Service
-class KafkaProducerService (
+@Component
+class KafkaProducer (
 
     @Value("\${spring.kafka.producer.topic}")
     private val topicName: String,
 
-    private val kafkaTemplate: KafkaTemplate<String, KafkaMessage<CrawlingResultDto>>
+    private val kafkaTemplate: KafkaTemplate<String, KafkaMessage?>
 
 ) {
 
-    fun send(kafkaMessage: KafkaMessage<CrawlingResultDto>) {
+    fun send(kafkaMessage: KafkaMessage) {
         kafkaTemplate.send(topicName, UUID.randomUUID().toString(), kafkaMessage)
     }
 
