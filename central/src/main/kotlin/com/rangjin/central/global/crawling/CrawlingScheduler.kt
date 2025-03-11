@@ -15,7 +15,7 @@ class CrawlingScheduler (
 
 ) {
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     fun schedule() {
         val crawlingResultDtoList = articleCrawler.crawlingRankingArticles()
 
