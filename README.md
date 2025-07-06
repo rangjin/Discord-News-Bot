@@ -24,7 +24,7 @@
 ---
 ## 시스템 아키텍쳐
 
-![Image](https://github.com/user-attachments/assets/89622728-54f5-4fc9-bd23-bddf6a8fb9f0)
+![Image](https://github.com/user-attachments/assets/0cff521a-e9b9-4fe4-b657-2172aabac9f0)
 
 ---
 ## 사용 기술
